@@ -28,8 +28,6 @@ namespace P2PChatRoom
             
             this.networkBackgroundWorker = new BackgroundWorker();
 
-            networkBackgroundWorker.DoWor
-
         }
         
     }
