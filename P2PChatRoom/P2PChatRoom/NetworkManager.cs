@@ -15,7 +15,7 @@ namespace P2PChatRoom
             public static int MAX_MESSAGE_SIZE = 512;
 
             // Used by the client
-            public static int SEND_MSG_PORT = 1983;
+            public static int SEND_MSG_PORT = 1984;
             // Used by the server
             public static int RECV_MSG_PORT = 1984;
         }

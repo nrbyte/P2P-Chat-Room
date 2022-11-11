@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows.Threading;
 
 using System.Collections.Concurrent;
 
@@ -60,6 +61,10 @@ namespace P2PChatRoom
                     string deviceName = dataReceived.Substring(0, 10);
                     string msg = dataReceived.Substring(10);
                     Console.WriteLine($"{deviceName}: {msg}");
+
+                    System.Windows.Application.Current.Dispatcher.Invoke(() => {
+                        chatHandler.showMessage(deviceName, msg);
+                    });
 
                     chatHandler.showMessage(deviceName, msg);
 
