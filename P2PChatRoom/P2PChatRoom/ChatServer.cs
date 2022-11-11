@@ -66,8 +66,6 @@ namespace P2PChatRoom
                         chatHandler.showMessage(deviceName, msg);
                     });
 
-                    chatHandler.showMessage(deviceName, msg);
-
                     if (msg == "SHUTDOWN${$}") {
                         serverRunning = false;
                     }
