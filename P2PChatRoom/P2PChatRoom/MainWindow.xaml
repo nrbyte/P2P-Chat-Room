@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:P2PChatRoom"
         mc:Ignorable="d"
-        Title="P2P Chat App [TEST BUILD]" Height="450" Width="800">
+        Title="P2P Chat App [TEST BUILD]" Height="450" Width="800" StateChanged="Window_StateChanged">
 
     <Grid x:Name="MainGrid" Background="LightBlue">
         <!--This is the multicolor button-->
