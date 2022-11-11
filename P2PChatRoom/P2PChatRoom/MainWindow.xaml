@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:P2PChatRoom"
         mc:Ignorable="d"
         Title="P2P Chat App [TEST BUILD]" Height="450" Width="800">
+
     <Grid x:Name="MainGrid" MouseUp="MainGrid_MouseUp" MouseDown="MainGrid_MouseDown" Background="LightBlue">
-        <Button Width="60" Height="50" VerticalAlignment="Bottom">
+        <!--This is the multicolor button-->
+            <Button Width="60" Height="50" VerticalAlignment="Bottom">
             <Button.FontWeight>Bold</Button.FontWeight>
             <Button.Content>
                 <WrapPanel>
@@ -18,4 +20,5 @@
             </Button.Content>
         </Button>
     </Grid>
+    
 </Window>

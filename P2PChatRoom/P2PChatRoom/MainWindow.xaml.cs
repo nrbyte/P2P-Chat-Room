@@ -24,22 +24,13 @@ namespace P2PChatRoom
         string path = Directory.GetCurrentDirectory();
         public MainWindow()
         {
+            // Constructor for MainWindow
             InitializeComponent();
+
+
             Uri icon = new Uri($"{path}\\images\\P2P.ico", UriKind.Absolute);
             ImageSource iconSource = new BitmapImage(icon);
             this.Icon = iconSource;
-            MainGrid.MouseUp += new MouseButtonEventHandler(MainGrid_MouseUp);
-            MainGrid.MouseDown += new MouseButtonEventHandler(MainGrid_MouseDown);
-        }
-
-        private void MainGrid_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("You clicked at " + e.GetPosition(this).ToString(), "Position Alert!");
-        }
-
-        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine();
         }
     }
 }
