@@ -8,6 +8,14 @@
         Title="P2P Chat App [TEST BUILD]" Height="450" Width="800" StateChanged="Window_StateChanged">
 
     <Grid x:Name="MainGrid" Background="LightBlue">
+        <TextBlock x:Name="deviceName" Height="225" VerticalAlignment="Top" FontSize="50">Laptop</TextBlock>
+        <TextBlock x:Name="messageDisplayed" Height="225" VerticalAlignment="Bottom" TextWrapping="Wrap">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
+            eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus.
+        </TextBlock>
+        
         <!--This is the multicolor button-->
         <Button Width="60" Height="50" VerticalAlignment="Bottom">
             <Button.FontWeight>Bold</Button.FontWeight>
@@ -19,13 +27,6 @@
                 </WrapPanel>
             </Button.Content>
         </Button>
-        <TextBlock x:Name="deviceName" Height="225" VerticalAlignment="Top" FontSize="50">Laptop</TextBlock>
-        <TextBlock x:Name="messageDisplayed" Height="225" VerticalAlignment="Bottom" TextWrapping="Wrap">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
-            eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus.
-        </TextBlock>
     </Grid>
     
 </Window>
