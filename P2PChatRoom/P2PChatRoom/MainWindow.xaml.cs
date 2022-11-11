@@ -47,8 +47,8 @@ namespace P2PChatRoom
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            if (this.WindowState == WindowState.Minimized) ShowInTaskbar = false;
-            else ShowInTaskbar = true;
+            if (this.WindowState == WindowState.Minimized) this.Hide();
+            else this.Show();
         }
     }
 }
