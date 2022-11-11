@@ -23,6 +23,18 @@ namespace P2PChatRoom
         public MainWindow()
         {
             InitializeComponent();
+            MainGrid.MouseUp += new MouseButtonEventHandler(MainGrid_MouseUp);
+            MainGrid.MouseDown += new MouseButtonEventHandler(MainGrid_MouseDown);
+        }
+
+        private void MainGrid_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("You clicked at " + e.GetPosition(this).ToString(), "Position Alert!");
+        }
+
+        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine();
         }
     }
 }
