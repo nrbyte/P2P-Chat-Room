@@ -22,12 +22,21 @@ namespace P2PChatRoom
 
         private BackgroundWorker networkBackgroundWorker;
 
+        public ChatServer cs;
+        public ChatClient cc;
 
-        public NetworkManager()
+        public void AddMessage(string device, string msg)
         {
-            
-            this.networkBackgroundWorker = new BackgroundWorker();
+            cc.msgsToSend.Enqueue((device + msg));
+        }
 
+
+        public NetworkManager(ChatHandler ch)
+        {
+            cs = new ChatServer(ch);
+            cc = new ChatClient();
+
+            this.networkBackgroundWorker = new BackgroundWorker();
         }
         
     }

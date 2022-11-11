@@ -4,12 +4,25 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
+using System.Collections.Concurrent;
+
 namespace P2PChatRoom
 {
+    
+    public interface ChatHandler
+    {
+        void showMessage(string deviceName, string messageRecieved);
+    }
+
     public class ChatServer
     {
-        public ChatServer()
+
+        private ChatHandler chatHandler;
+
+        public ChatServer(ChatHandler chatHandler)
         {
+            this.chatHandler = chatHandler;
+
             Thread thread = new Thread(new ThreadStart(RunServer));
             thread.Start();
         }
@@ -33,7 +46,7 @@ namespace P2PChatRoom
 
                 Console.WriteLine("ChatServer.cs: Got a connection!");
 
-                string dataRecieved = "";
+                string dataReceived = "";
                 byte[] bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
 
                 bool serverRunning = true;
@@ -41,12 +54,14 @@ namespace P2PChatRoom
                 {
                     bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
 
-                    int bytesRecieved = handler.Receive(bytes);
-                    dataRecieved = Encoding.ASCII.GetString(bytes, 0, bytesRecieved);
+                    int bytesReceived = handler.Receive(bytes);
+                    dataReceived = Encoding.ASCII.GetString(bytes, 0, bytesReceived);
 
-                    string deviceName = dataRecieved.Substring(0, 10);
-                    string msg = dataRecieved.Substring(10);
+                    string deviceName = dataReceived.Substring(0, 10);
+                    string msg = dataReceived.Substring(10);
                     Console.WriteLine($"{deviceName}: {msg}");
+
+                    chatHandler.showMessage(deviceName, msg);
 
                     if (msg == "SHUTDOWN${$}") {
                         serverRunning = false;
@@ -60,8 +75,6 @@ namespace P2PChatRoom
             {
                 Console.WriteLine(e.ToString());
             }
-
-
         }
     }
 }
