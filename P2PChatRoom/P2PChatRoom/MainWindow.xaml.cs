@@ -24,6 +24,7 @@ namespace P2PChatRoom
         string path = Directory.GetCurrentDirectory();
         NetworkManager networkManager;
         StackPanel msgSP;
+        string deviceName;
 
         // Constructor for MainWindow
         public MainWindow()
@@ -39,9 +40,8 @@ namespace P2PChatRoom
             ImageSource iconSource = new BitmapImage(icon);
             this.Icon = iconSource;
 
-            // Placeholder
-            showMessage("Telegraph System, California Outpost", "IMPORTANT ANNOUCEMENT 25TH OCTOBER 1881\n---------------------------------------\n\nThe Imperial Empire of Japan has attached our precious naval islands with their navy.\n\nCongress has approved $100 million in military funding to defeat this upcoming enemy.");
-        } 
+            deviceName = yourDeviceName.Text;
+            } 
 
         public void showMessage(string deviceName, string messageReceived)
         {
@@ -67,6 +67,13 @@ namespace P2PChatRoom
                 networkManager.AddConnection(newConPopup.deviceName.Text, newConPopup.IPAddress.Text);
                 addButton(devices, newConPopup.deviceName.Text);
             }
+        }
+
+        private void sendButton_Click(object sender, RoutedEventArgs e)
+        {
+            showMessage(deviceName, inputMessage.Text);
+            networkManager.SendMessage("Bob's PC", deviceName, inputMessage.Text);
+            inputMessage.Text = "";
         }
     }
 }

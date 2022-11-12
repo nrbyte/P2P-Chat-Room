@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:P2PChatRoom"
              Startup="Application_Startup">
     <Application.Resources>
-        <sys:String x:Key="deviceName">• Bob's PC</sys:String>
+        <sys:String x:Key="deviceName">Bob's PC</sys:String>
         <Style x:Key="deviceStyle" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="20"/>
             <Setter Property="Margin" Value="2"/>

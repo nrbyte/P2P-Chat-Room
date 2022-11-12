@@ -40,8 +40,8 @@
                 </TextBox>
             </StackPanel>
             <StackPanel x:Name="typingStackPanel" VerticalAlignment="Bottom" Height="Auto">
-                <TextBox Height="Auto" TextWrapping="Wrap" MaxLength="512">Type Here</TextBox>
-                <Button Width="50" HorizontalAlignment="Right" Margin="10">Send</Button>
+                <TextBox x:Name="inputMessage" Height="Auto" TextWrapping="Wrap" MaxLength="512">Type Here</TextBox>
+                <Button x:Name="sendButton" Width="50" HorizontalAlignment="Right" Margin="10" Click="sendButton_Click">Send</Button>
             </StackPanel>
         </StackPanel>
     </Grid>
