@@ -13,5 +13,11 @@ namespace P2PChatRoom
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+            window.Title = "P2P Chat App[TEST BUILD]";
+            window.Show();
+        }
     }
 }
