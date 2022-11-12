@@ -43,8 +43,7 @@ namespace P2PChatRoom
 
         public void showMessage(string deviceName, string messageReceived)
         {
-            this.senderName.Text = deviceName;
-            this.messageDisplayed.Text = messageReceived;
+            this.messageDisplayed.Text = $"{deviceName}: {messageReceived}";
         }
 
         public void addButton(StackPanel sp, string content)
