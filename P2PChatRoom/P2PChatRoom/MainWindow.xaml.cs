@@ -44,11 +44,5 @@ namespace P2PChatRoom
             this.deviceName.Text = deviceName;
             this.messageDisplayed.Text = messageReceived;
         }
-
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            if (this.WindowState == WindowState.Minimized) this.Hide();
-            else this.Show();
-        }
     }
 }
