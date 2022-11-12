@@ -32,7 +32,7 @@ namespace P2PChatRoom
             }
         }
 
-        static string currentlyViewingContact = "";
+        static string currentContact = "";
 
         // Constructor for MainWindow
         public MainWindow()
@@ -51,6 +51,7 @@ namespace P2PChatRoom
 
         } 
 
+        // Displays given message with deviceName on the stackPanel
         public void showMessage(string deviceName, string messageReceived)
         {
             TextBox currentMessage = new TextBox();
@@ -58,7 +59,8 @@ namespace P2PChatRoom
             messageStackPanel.Children.Add(currentMessage);
         }
 
-        public void addButton(StackPanel sp, string content)
+        // Adds a DM button with the given content to the given stack panel
+        public void addDMButton(StackPanel sp, string content)
         {
             Button btn = new Button();
             btn.Content = content;
@@ -66,6 +68,7 @@ namespace P2PChatRoom
             sp.Children.Add(btn);
         }
 
+        // It shows the dialog, and the inputted IP Address and deviceName are used to make a new DM contact
         private void addConnection_Click(object sender, RoutedEventArgs e)
         {
             NewConnection newConPopup = new NewConnection();
@@ -77,20 +80,23 @@ namespace P2PChatRoom
             {
                 DirectMessage directMessageObj = new DirectMessage(this, contactName, IPAdress);
                 networkManager.AddDirectMessage(directMessageObj);
-                addButton(devices, newConPopup.deviceName.Text);
+                addDMButton(devices, newConPopup.deviceName.Text);
             }
         }
 
+        // Sends message to recipient given, and shows it to sender as well
         private void sendButton_Click(object sender, RoutedEventArgs e)
         {
             string msg = inputMessage.Text;
             showMessage(deviceName, inputMessage.Text);
-            networkManager.SendMessageOutward(currentlyViewingContact.PadRight(10), yourDeviceName.Text.PadRight(10), msg);
+            networkManager.SendMessageOutward(currentContact.PadRight(10), yourDeviceName.Text.PadRight(10), msg);
+            inputMessage.Text = "";
         }
 
+        // Changes current contact
         private void DMButtonClick(object sender, RoutedEventArgs e)
         {
-            currentlyViewingContact = (sender as Button).Content.ToString();
+            currentContact = (sender as Button).Content.ToString();
         }
     }
 }
