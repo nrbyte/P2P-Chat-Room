@@ -21,14 +21,14 @@ namespace P2PChatRoom
             this.contactName = contactName;
         }
 
-        public void RecieveMessage(string sender, string msg)
+        public void ReceiveMessage(string sender, string msg)
         {
             ch.showMessage(sender, msg);
         }
 
         public void SendMessageOutward(string deviceName, string msg)
         {
-            chatClient.msgsToSend.Enqueue((deviceName + msg));
+            chatClient.msgsToSend.Enqueue((deviceName + "|" + msg));
         }
 
     }

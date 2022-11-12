@@ -9,7 +9,7 @@ namespace P2PChatRoom
     
     public interface ChatHandler
     {
-        void showMessage(string sender, string messageRecieved);
+        void showMessage(string sender, string messageReceived);
     }
 
     public class ChatServer
@@ -55,8 +55,10 @@ namespace P2PChatRoom
                     int bytesReceived = handler.Receive(bytes);
                     dataReceived = Encoding.ASCII.GetString(bytes, 0, bytesReceived);
 
-                    string sender = dataReceived.Substring(0, 10);
-                    string msg = dataReceived.Substring(10);
+                    string[] dataReceivedSplit = dataReceived.Split("|");
+
+                    string sender = dataReceivedSplit[0];
+                    string msg = dataReceivedSplit[1];
                     Console.WriteLine($"{sender}: {msg}");
 
                     System.Windows.Application.Current.Dispatcher.Invoke(() => {
