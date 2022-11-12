@@ -54,6 +54,8 @@ namespace P2PChatRoom
         {
             Button btn = new Button();
             btn.Content = content;
+            btn.Name = content;
+            btn.Click += DMButtonClick;
             sp.Children.Add(btn);
         }
 
@@ -74,6 +76,11 @@ namespace P2PChatRoom
             showMessage(deviceName, inputMessage.Text);
             networkManager.SendMessage("Bob's PC", deviceName, inputMessage.Text);
             inputMessage.Text = "";
+        }
+
+        private void DMButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
