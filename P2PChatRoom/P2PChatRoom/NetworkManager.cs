@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using System.ComponentModel;
 
-using System.Threading;
+using System.Collections.Generic;
 
 namespace P2PChatRoom
 {
@@ -22,19 +22,32 @@ namespace P2PChatRoom
 
         private BackgroundWorker networkBackgroundWorker;
 
-        public ChatServer cs;
-        public ChatClient cc;
+        private ChatServer cs;
+        
+        private List<ChatClient> clients;
 
-        public void AddMessage(string device, string msg)
+
+        public void AddConnection(string ipAddress)
         {
-            cc.msgsToSend.Enqueue((device + msg));
+            ChatClient cc = new ChatClient(ipAddress);
+            clients.Add(cc);
         }
 
+        public void SendMessage(string ipAddress, string device, string msg)
+        {
+            foreach (ChatClient clientConnection in clients)
+            {
+                if (clientConnection.ipAddress.ToString() == ipAddress)
+                {
+                    clientConnection.msgsToSend.Enqueue((device + msg));
+                }
+            }
+        }
 
         public NetworkManager(ChatHandler ch)
         {
             cs = new ChatServer(ch);
-            cc = new ChatClient();
+            clients = new List<ChatClient>();
 
             this.networkBackgroundWorker = new BackgroundWorker();
         }

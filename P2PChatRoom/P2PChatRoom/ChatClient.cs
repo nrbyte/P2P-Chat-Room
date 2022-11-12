@@ -14,8 +14,13 @@ namespace P2PChatRoom
  
         public ConcurrentQueue<string> msgsToSend = new ConcurrentQueue<string>();
 
-        public ChatClient()
+        public IPAddress ipAddress {get; private set;}
+
+
+        public ChatClient(string ip)
         {
+            IPHostEntry host = Dns.GetHostEntry(ip);
+            this.ipAddress = host.AddressList[0];
             Thread thread = new Thread(new ThreadStart(RunClient));
             thread.Start();
         }
@@ -27,8 +32,6 @@ namespace P2PChatRoom
         
         private void RunClient()
         {
-            IPHostEntry host = Dns.GetHostEntry("localhost");
-            IPAddress ipAddress = host.AddressList[0];
             IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, NetworkManager.Constants.SEND_MSG_PORT);
 
             Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
