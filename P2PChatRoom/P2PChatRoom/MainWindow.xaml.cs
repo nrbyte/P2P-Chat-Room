@@ -89,9 +89,11 @@ namespace P2PChatRoom
         private void sendButton_Click(object sender, RoutedEventArgs e)
         {
             string msg = inputMessage.Text;
-            showMessage(deviceName, inputMessage.Text);
-            networkManager.SendMessageOutward(currentContact, yourDeviceName.Text, msg);
-            inputMessage.Text = "";
+            if (networkManager.SendMessageOutward(currentContact, yourDeviceName.Text, msg))
+            {
+                showMessage(deviceName, inputMessage.Text);
+                inputMessage.Text = "";
+            }
         }
 
         // Changes current contact

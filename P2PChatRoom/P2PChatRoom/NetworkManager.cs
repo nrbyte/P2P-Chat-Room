@@ -1,7 +1,7 @@
 using System;
-
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace P2PChatRoom
 {
@@ -35,9 +35,18 @@ namespace P2PChatRoom
             cs = new ChatServer(this);
         }
 
-        public void SendMessageOutward(string recipient, string deviceName, string msg)
+        public bool SendMessageOutward(string recipient, string deviceName, string msg)
         {
-            directMessages.Where(x => x.contactName == recipient).First().SendMessageOutward(deviceName, msg);
+            try
+            {
+                directMessages.Where(x => x.contactName == recipient).First().SendMessageOutward(deviceName, msg);
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("You have not bound a contact!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
         }
         
         public void AddDirectMessage(DirectMessage directMessage)
