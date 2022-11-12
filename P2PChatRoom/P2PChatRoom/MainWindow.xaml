@@ -5,39 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:P2PChatRoom"
         mc:Ignorable="d"
-        Height="450" Width="800">
+        Background="AliceBlue" Height="450" Width="800">
 
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-
-        <Border Background="Black" Grid.ColumnSpan="1"/>
-        <StackPanel Margin="3" Height="367" VerticalAlignment="Top" Background="Gray">
-            <TextBlock x:Name="yourDeviceName" Height="20" VerticalAlignment="Top" Text="{StaticResource deviceName}" Background="White" Padding="10,0,0,0"/>
-        </StackPanel>
-        
-        <Button x:Name="addConnection" Height="30" VerticalAlignment="Bottom" Margin="5">Add Connection</Button>
+        <Border Background="Gainsboro" BorderBrush="Gainsboro" BorderThickness="1" Margin="5">
+            <StackPanel x:Name="devices" Height="367" VerticalAlignment="Top">
+                <StackPanel.Resources>
+                    <Style BasedOn="{StaticResource devicesStyle}" TargetType="{x:Type Button}"/>
+                </StackPanel.Resources>
+                <Border BorderBrush="Black" BorderThickness="1" Margin="2">
+                    <TextBlock x:Name="yourDeviceName" Height="20" VerticalAlignment="Top" Text="{StaticResource deviceName}" Background="White" Padding="10,0,0,0"/>
+                </Border>
+                <!-- You can add buttons here to add users on UI -->
+            </StackPanel>
+        </Border>
+        <Button x:Name="addConnection" Height="30" VerticalAlignment="Bottom" Margin="9" Click="addConnection_Click">Add Connection</Button>
 
         <TextBlock Grid.Column="1"  x:Name="senderName" Height="195" VerticalAlignment="Top" FontSize="50" TextWrapping="Wrap" Margin="5">Laptop</TextBlock>
-        <TextBlock Grid.Column="1" x:Name="messageDisplayed" Height="225" VerticalAlignment="Bottom" TextWrapping="Wrap" Margin="5">
+        <TextBox Grid.Column="1" x:Name="messageDisplayed" Height="225" VerticalAlignment="Bottom" TextWrapping="Wrap" Margin="5"
+            Background="Transparent" BorderThickness="0" IsReadOnly="True">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
             dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
             Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
             eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus.
-        </TextBlock>
-
-        <!--This is the multicolor button-->
-        <Button Grid.Column="1" Width="60" Height="50" VerticalAlignment="Bottom" Margin="10">
-            <Button.FontWeight>Bold</Button.FontWeight>
-            <Button.Content>
-                <WrapPanel>
-                    <TextBlock Foreground="Blue">Multi</TextBlock>
-                    <TextBlock Foreground="Red">Colour</TextBlock>
-                    <TextBlock>Button</TextBlock>
-                </WrapPanel>
-            </Button.Content>
-        </Button>
+        </TextBox>
     </Grid>
 </Window>

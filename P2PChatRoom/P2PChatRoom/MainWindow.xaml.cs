@@ -48,5 +48,10 @@ namespace P2PChatRoom
             this.senderName.Text = deviceName;
             this.messageDisplayed.Text = messageReceived;
         }
+        private void addConnection_Click(object sender, RoutedEventArgs e)
+        {
+            NewConnection newConPopup = new NewConnection();
+            newConPopup.ShowDialog();
+        }
     }
 }
