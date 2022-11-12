@@ -24,7 +24,15 @@ namespace P2PChatRoom
         string path = Directory.GetCurrentDirectory();
         NetworkManager networkManager;
         StackPanel msgSP;
-        string deviceName;
+        string deviceName
+        {
+            get
+            {
+                return yourDeviceName.Text.PadRight(10);
+            }
+        }
+
+        static string currentlyViewingContact = "";
 
         // Constructor for MainWindow
         public MainWindow()
@@ -40,8 +48,8 @@ namespace P2PChatRoom
             ImageSource iconSource = new BitmapImage(icon);
             this.Icon = iconSource;
 
-            deviceName = yourDeviceName.Text;
-            } 
+
+        } 
 
         public void showMessage(string deviceName, string messageReceived)
         {
@@ -54,7 +62,6 @@ namespace P2PChatRoom
         {
             Button btn = new Button();
             btn.Content = content;
-            btn.Name = content;
             btn.Click += DMButtonClick;
             sp.Children.Add(btn);
         }
@@ -66,21 +73,25 @@ namespace P2PChatRoom
 
             if (newConPopup.DialogResult == true)
             {
-                networkManager.AddConnection(newConPopup.deviceName.Text, newConPopup.IPAddress.Text);
+                networkManager.AddDirectMessage(new DirectMessage(this, newConPopup.deviceName.Text.PadRight(10), newConPopup.IPAddress.Text));
                 addButton(devices, newConPopup.deviceName.Text);
             }
         }
 
         private void sendButton_Click(object sender, RoutedEventArgs e)
         {
-            showMessage(deviceName, inputMessage.Text);
-            networkManager.SendMessage("Bob's PC", deviceName, inputMessage.Text);
-            inputMessage.Text = "";
+            string msg = inputMessage.Text;
+            Console.WriteLine($"sending a message: {yourDeviceName.Text};");
+            networkManager.SendMessageOutward(currentlyViewingContact.PadRight(10), yourDeviceName.Text, msg);
+
+            //showMessage(deviceName, inputMessage.Text);
+            //networkManager.SendMessage("Bob's PC", deviceName, inputMessage.Text);
+            //inputMessage.Text = "";
         }
 
         private void DMButtonClick(object sender, RoutedEventArgs e)
         {
-
+            currentlyViewingContact = (sender as Button).Content.ToString();
         }
     }
 }

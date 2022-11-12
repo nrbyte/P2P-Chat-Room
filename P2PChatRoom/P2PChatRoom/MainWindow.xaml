@@ -19,7 +19,7 @@
                     <Style BasedOn="{StaticResource deviceStyle}" TargetType="{x:Type Button}"/>
                 </StackPanel.Resources>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="2">
-                    <TextBlock x:Name="yourDeviceName" Height="20" VerticalAlignment="Top" Text="{StaticResource deviceName}" Background="White" Padding="10,0,0,0"/>
+                    <TextBox x:Name="yourDeviceName" Height="20" VerticalAlignment="Top" Text="{StaticResource deviceName}" Background="White" Padding="10,0,0,0"/>
                 </Border>
                 <!-- You can add buttons here to add users on UI -->
             </StackPanel>

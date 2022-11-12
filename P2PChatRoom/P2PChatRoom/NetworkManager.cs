@@ -19,7 +19,7 @@ namespace P2PChatRoom
             public static int RECV_MSG_PORT = 1984;
         }
 
-        private List<DirectMessage> directMessages;
+        public List<DirectMessage> directMessages;
 
         private ChatServer cs;
 
@@ -34,6 +34,15 @@ namespace P2PChatRoom
 
             cs = new ChatServer(this);
         }
+
+        public void SendMessageOutward(string sendTo, string deviceName, string msg)
+        {
+            directMessages.Where(x => x.contactName == sendTo).First().SendMessageOutward(deviceName, msg);
+        }
         
+        public void AddDirectMessage(DirectMessage directMessage)
+        {
+            directMessages.Add(directMessage);
+        }
     }
 }
