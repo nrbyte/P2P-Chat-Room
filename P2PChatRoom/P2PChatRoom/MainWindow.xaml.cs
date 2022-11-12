@@ -26,6 +26,7 @@ namespace P2PChatRoom
         {
             // Constructor for MainWindow
             InitializeComponent();
+            this.ResizeMode = ResizeMode.CanMinimize;
 
             Uri icon = new Uri($"{path}\\images\\P2P.ico", UriKind.Absolute);
             ImageSource iconSource = new BitmapImage(icon);
@@ -41,7 +42,7 @@ namespace P2PChatRoom
 
         public void showMessage(string deviceName, string messageReceived)
         {
-            this.deviceName.Text = deviceName;
+            this.senderName.Text = deviceName;
             this.messageDisplayed.Text = messageReceived;
         }
     }
