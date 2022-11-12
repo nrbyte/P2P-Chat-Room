@@ -23,9 +23,9 @@ namespace P2PChatRoom
 
         private ChatServer cs;
 
-        public void showMessage(string sender, string messageRecieved)
+        public void showMessage(string sender, string messageReceived)
         {
-            directMessages.Where(x => x.contactName == sender).First().RecieveMessage(sender, messageRecieved);
+            directMessages.Where(x => x.contactName == sender).First().ReceiveMessage(sender, messageReceived);
         }
 
         public NetworkManager(ChatHandler ch)
@@ -35,9 +35,9 @@ namespace P2PChatRoom
             cs = new ChatServer(this);
         }
 
-        public void SendMessageOutward(string sendTo, string deviceName, string msg)
+        public void SendMessageOutward(string recipient, string deviceName, string msg)
         {
-            directMessages.Where(x => x.contactName == sendTo).First().SendMessageOutward(deviceName, msg);
+            directMessages.Where(x => x.contactName == recipient).First().SendMessageOutward(deviceName, msg);
         }
         
         public void AddDirectMessage(DirectMessage directMessage)

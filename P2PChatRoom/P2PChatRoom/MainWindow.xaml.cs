@@ -28,7 +28,7 @@ namespace P2PChatRoom
         {
             get
             {
-                return yourDeviceName.Text.PadRight(10);
+                return yourDeviceName.Text;
             }
         }
 
@@ -75,7 +75,8 @@ namespace P2PChatRoom
             newConPopup.ShowDialog();
 
             string IPAdress = newConPopup.IPAddress.Text;
-            string contactName = newConPopup.deviceName.Text.PadRight(10);
+            string contactName = newConPopup.deviceName.Text;
+
             if (newConPopup.DialogResult == true)
             {
                 DirectMessage directMessageObj = new DirectMessage(this, contactName, IPAdress);
@@ -89,7 +90,7 @@ namespace P2PChatRoom
         {
             string msg = inputMessage.Text;
             showMessage(deviceName, inputMessage.Text);
-            networkManager.SendMessageOutward(currentContact.PadRight(10), yourDeviceName.Text.PadRight(10), msg);
+            networkManager.SendMessageOutward(currentContact, yourDeviceName.Text, msg);
             inputMessage.Text = "";
         }
 
