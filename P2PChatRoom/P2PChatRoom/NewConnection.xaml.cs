@@ -34,8 +34,8 @@ namespace P2PChatRoom
             deviceName.SelectAll();
             deviceName.Focus();
 
-//            IPAddress.SelectAll();
-//            IPAddress.Focus();
+            IPAddress.SelectAll();
+            IPAddress.Focus();
         }
     }
 }
