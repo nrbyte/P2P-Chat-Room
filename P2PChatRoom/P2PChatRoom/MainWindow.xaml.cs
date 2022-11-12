@@ -71,9 +71,12 @@ namespace P2PChatRoom
             NewConnection newConPopup = new NewConnection();
             newConPopup.ShowDialog();
 
+            string IPAdress = newConPopup.IPAddress.Text;
+            string contactName = newConPopup.deviceName.Text.PadRight(10);
             if (newConPopup.DialogResult == true)
             {
-                networkManager.AddDirectMessage(new DirectMessage(this, newConPopup.deviceName.Text.PadRight(10), newConPopup.IPAddress.Text));
+                DirectMessage directMessageObj = new DirectMessage(this, contactName, IPAdress);
+                networkManager.AddDirectMessage(directMessageObj);
                 addButton(devices, newConPopup.deviceName.Text);
             }
         }
@@ -81,12 +84,8 @@ namespace P2PChatRoom
         private void sendButton_Click(object sender, RoutedEventArgs e)
         {
             string msg = inputMessage.Text;
-            Console.WriteLine($"sending a message: {yourDeviceName.Text};");
-            networkManager.SendMessageOutward(currentlyViewingContact.PadRight(10), yourDeviceName.Text, msg);
-
-            //showMessage(deviceName, inputMessage.Text);
-            //networkManager.SendMessage("Bob's PC", deviceName, inputMessage.Text);
-            //inputMessage.Text = "";
+            showMessage(deviceName, inputMessage.Text);
+            networkManager.SendMessageOutward(currentlyViewingContact.PadRight(10), yourDeviceName.Text.PadRight(10), msg);
         }
 
         private void DMButtonClick(object sender, RoutedEventArgs e)
