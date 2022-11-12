@@ -1,5 +1,6 @@
 using System;
-using System.Windows;
+using System.Net;
+using System.Net.Sockets;
 using System.ComponentModel;
 
 using System.Collections.Generic;
@@ -24,30 +25,24 @@ namespace P2PChatRoom
 
         private ChatServer cs;
         
-        private List<ChatClient> clients;
+        private Dictionary<String, ChatClient> clientContacts;
 
 
-        public void AddConnection(string ipAddress)
+        public void AddConnection(string name, string ipAddress)
         {
             ChatClient cc = new ChatClient(ipAddress);
-            clients.Add(cc);
+            clientContacts.Add(name, cc);
         }
 
-        public void SendMessage(string ipAddress, string device, string msg)
+        public void SendMessage(string name, string device, string msg)
         {
-            foreach (ChatClient clientConnection in clients)
-            {
-                if (clientConnection.ipAddress.ToString() == ipAddress)
-                {
-                    clientConnection.msgsToSend.Enqueue((device + msg));
-                }
-            }
+            clientContacts[name].msgsToSend.Enqueue(device + msg);
         }
 
         public NetworkManager(ChatHandler ch)
         {
             cs = new ChatServer(ch);
-            clients = new List<ChatClient>();
+            clientContacts = new Dictionary<String, ChatClient>();
 
             this.networkBackgroundWorker = new BackgroundWorker();
         }

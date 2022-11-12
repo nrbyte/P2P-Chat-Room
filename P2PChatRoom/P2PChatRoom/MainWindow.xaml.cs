@@ -35,7 +35,8 @@ namespace P2PChatRoom
             this.Icon = iconSource;
 
             NetworkManager networkManager = new NetworkManager(this);
-            networkManager.AddMessage("OWN DEVICE", "TEST MESSAGE 101");
+            networkManager.AddConnection("bob", "localhost");
+            networkManager.SendMessage("bob", "OWN DEVICE", "TEST MESSAGE 101");
 
             
             // Placeholder
