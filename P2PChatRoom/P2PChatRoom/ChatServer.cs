@@ -3,16 +3,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Windows.Threading;
-
-using System.Collections.Concurrent;
 
 namespace P2PChatRoom
 {
     
     public interface ChatHandler
     {
-        void showMessage(string deviceName, string messageRecieved);
+        void showMessage(string sender, string messageRecieved);
     }
 
     public class ChatServer
@@ -58,12 +55,12 @@ namespace P2PChatRoom
                     int bytesReceived = handler.Receive(bytes);
                     dataReceived = Encoding.ASCII.GetString(bytes, 0, bytesReceived);
 
-                    string deviceName = dataReceived.Substring(0, 10);
+                    string sender = dataReceived.Substring(0, 10);
                     string msg = dataReceived.Substring(10);
-                    Console.WriteLine($"{deviceName}: {msg}");
+                    Console.WriteLine($"{sender}: {msg}");
 
                     System.Windows.Application.Current.Dispatcher.Invoke(() => {
-                        chatHandler.showMessage(deviceName, msg);
+                        chatHandler.showMessage(sender, msg);
                     });
 
                 }

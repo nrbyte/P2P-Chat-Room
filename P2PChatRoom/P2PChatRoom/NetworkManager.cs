@@ -1,13 +1,11 @@
 using System;
-using System.Net;
-using System.Net.Sockets;
-using System.ComponentModel;
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace P2PChatRoom
 {
-    public class NetworkManager
+    public class NetworkManager : ChatHandler
     {
 
         public struct Constants
@@ -21,30 +19,20 @@ namespace P2PChatRoom
             public static int RECV_MSG_PORT = 1984;
         }
 
-        private BackgroundWorker networkBackgroundWorker;
+        private List<DirectMessage> directMessages;
 
         private ChatServer cs;
-        
-        private Dictionary<String, ChatClient> clientContacts;
 
-
-        public void AddConnection(string name, string ipAddress)
+        public void showMessage(string sender, string messageRecieved)
         {
-            ChatClient cc = new ChatClient(ipAddress);
-            clientContacts.Add(name, cc);
-        }
-
-        public void SendMessage(string name, string device, string msg)
-        {
-            clientContacts[name].msgsToSend.Enqueue(device + msg);
+            directMessages.Where(x => x.contactName == sender).First().RecieveMessage(sender, messageRecieved);
         }
 
         public NetworkManager(ChatHandler ch)
         {
-            cs = new ChatServer(ch);
-            clientContacts = new Dictionary<String, ChatClient>();
+            directMessages = new List<DirectMessage>();
 
-            this.networkBackgroundWorker = new BackgroundWorker();
+            cs = new ChatServer(this);
         }
         
     }
