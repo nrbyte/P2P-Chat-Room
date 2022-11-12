@@ -5,6 +5,6 @@
              xmlns:local="clr-namespace:P2PChatRoom"
              Startup="Application_Startup">
     <Application.Resources>
-        <sys:String x:Key="deviceName">Bob's PC</sys:String>
+        <sys:String x:Key="deviceName">• Bob's PC</sys:String>
     </Application.Resources>
 </Application>

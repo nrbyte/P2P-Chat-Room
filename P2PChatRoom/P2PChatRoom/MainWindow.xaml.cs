@@ -22,12 +22,14 @@ namespace P2PChatRoom
     public partial class MainWindow : Window, ChatHandler
     {
         string path = Directory.GetCurrentDirectory();
+        
+        // Constructor for MainWindow
         public MainWindow()
         {
-            // Constructor for MainWindow
             InitializeComponent();
             this.ResizeMode = ResizeMode.CanMinimize;
 
+            // Finds icon according to current directory and binds it to the window icon
             Uri icon = new Uri($"{path}\\images\\P2P.ico", UriKind.Absolute);
             ImageSource iconSource = new BitmapImage(icon);
             this.Icon = iconSource;

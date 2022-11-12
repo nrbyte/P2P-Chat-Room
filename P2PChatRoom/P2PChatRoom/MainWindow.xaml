@@ -7,22 +7,27 @@
         mc:Ignorable="d"
         Height="450" Width="800">
 
-    <Grid x:Name="MainGrid" Background="LightBlue">
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="yourDeviceName" Height="15" VerticalAlignment="Top" Text="{StaticResource deviceName}"></TextBlock>
+        <Border Background="Black" Grid.ColumnSpan="1"/>
+        <StackPanel Margin="3" Height="367" VerticalAlignment="Top" Background="Gray">
+            <TextBlock x:Name="yourDeviceName" Height="20" VerticalAlignment="Top" Text="{StaticResource deviceName}" Background="White" Padding="10,0,0,0"/>
+        </StackPanel>
         
-        <TextBlock Grid.Column="1"  x:Name="senderName" Height="225" VerticalAlignment="Top" FontSize="50">Laptop</TextBlock>
-        <TextBlock Grid.Column="1" x:Name="messageDisplayed" Height="225" VerticalAlignment="Bottom" TextWrapping="Wrap">
+        <Button x:Name="addConnection" Height="30" VerticalAlignment="Bottom" Margin="5">Add Connection</Button>
+
+        <TextBlock Grid.Column="1"  x:Name="senderName" Height="195" VerticalAlignment="Top" FontSize="50" TextWrapping="Wrap" Margin="5">Laptop</TextBlock>
+        <TextBlock Grid.Column="1" x:Name="messageDisplayed" Height="225" VerticalAlignment="Bottom" TextWrapping="Wrap" Margin="5">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
             dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
             Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
             eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus.
         </TextBlock>
-        
+
         <!--This is the multicolor button-->
         <Button Grid.Column="1" Width="60" Height="50" VerticalAlignment="Bottom" Margin="10">
             <Button.FontWeight>Bold</Button.FontWeight>
@@ -35,5 +40,4 @@
             </Button.Content>
         </Button>
     </Grid>
-    
 </Window>
