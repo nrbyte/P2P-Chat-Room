@@ -23,6 +23,7 @@ namespace P2PChatRoom
     {
         string path = Directory.GetCurrentDirectory();
         NetworkManager networkManager;
+        StackPanel msgSP;
 
         // Constructor for MainWindow
         public MainWindow()
@@ -31,6 +32,7 @@ namespace P2PChatRoom
 
             this.ResizeMode = ResizeMode.CanMinimize;
             networkManager = new NetworkManager(this);
+            msgSP = messageStackPanel;
 
             // Finds icon according to current directory and binds it to the window icon
             Uri icon = new Uri($"{path}\\images\\P2P.ico", UriKind.Absolute);
@@ -43,7 +45,9 @@ namespace P2PChatRoom
 
         public void showMessage(string deviceName, string messageReceived)
         {
-            this.messageDisplayed.Text = $"{deviceName}: {messageReceived}";
+            TextBox currentMessage = new TextBox();
+            currentMessage.Text = $"{deviceName}:\n{messageReceived}";
+            messageStackPanel.Children.Add(currentMessage);
         }
 
         public void addButton(StackPanel sp, string content)
