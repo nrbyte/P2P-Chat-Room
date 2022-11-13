@@ -44,7 +44,7 @@ namespace P2PChatRoom
             }
             catch
             {
-                MessageBox.Show("You have not bound a contact!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Contact doesn't exist!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
