@@ -24,13 +24,8 @@ namespace P2PChatRoom
         string path = Directory.GetCurrentDirectory();
         NetworkManager networkManager;
         StackPanel msgSP;
-        string deviceName
-        {
-            get
-            {
-                return yourDeviceName.Text;
-            }
-        }
+        Button? currentButton;
+        string yourDeviceName;
 
         static string currentContact = "";
 
@@ -48,7 +43,11 @@ namespace P2PChatRoom
             ImageSource iconSource = new BitmapImage(icon);
             this.Icon = iconSource;
 
-
+            yourDeviceName = this.FindResource("username").ToString();
+            DirectMessage contact = new DirectMessage(this, yourDeviceName, "localhost");
+            networkManager.AddDirectMessage(contact);
+            currentContact = yourDeviceName;
+            currentButton = selfContact;
         } 
 
         // Displays given message with deviceName on the stackPanel
@@ -66,10 +65,10 @@ namespace P2PChatRoom
             btn.Content = content;
             btn.Click += DMButtonClick;
             sp.Children.Add(btn);
-        }
+        }   
 
-        // It shows the dialog, and the inputted IP Address and deviceName are used to make a new DM contact
-        private void addConnection_Click(object sender, RoutedEventArgs e)
+    // It shows the dialog, and the inputted IP Address and deviceName are used to make a new DM contact
+    private void addConnection_Click(object sender, RoutedEventArgs e)
         {
             NewConnection newConPopup = new NewConnection();
             newConPopup.ShowDialog();
@@ -89,9 +88,9 @@ namespace P2PChatRoom
         private void sendButton_Click(object sender, RoutedEventArgs e)
         {
             string msg = inputMessage.Text;
-            if (networkManager.SendMessageOutward(currentContact, yourDeviceName.Text, msg))
+            if (networkManager.SendMessageOutward(currentContact, yourDeviceName, msg))
             {
-                showMessage(deviceName, inputMessage.Text);
+                showMessage(yourDeviceName, inputMessage.Text);
                 inputMessage.Text = "";
             }
         }
@@ -99,13 +98,18 @@ namespace P2PChatRoom
         // Changes current contact
         private void DMButtonClick(object sender, RoutedEventArgs e)
         {
+            currentButton.Background = Brushes.Gainsboro;
+            Button btnClicked = (Button)sender;
+
             // Ensures that an DM Button with no content can't be selected
-            Button btn = (Button)sender;
-            if (string.IsNullOrEmpty( btn.Content.ToString() )) {
+            if (string.IsNullOrEmpty( btnClicked.Content.ToString() )) {
                 MessageBox.Show("The selected contact isn't labeled!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else {
-                currentContact = btn.Content.ToString();
+                currentContact = btnClicked.Content.ToString();
+                btnClicked.Background = Brushes.White;
+                currentButton = btnClicked;
+                messageStackPanel.Children.Clear();
             }
         }
     }

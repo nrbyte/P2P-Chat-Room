@@ -19,8 +19,9 @@
                     <Style BasedOn="{StaticResource deviceStyle}" TargetType="{x:Type Button}"/>
                 </StackPanel.Resources>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="2">
-                    <TextBox x:Name="yourDeviceName" Height="20" VerticalAlignment="Top" Text="{StaticResource deviceName}" Background="White" Padding="10,0,0,0"/>
+                    <TextBlock Height="20" VerticalAlignment="Top" Text="{DynamicResource username}" Background="White" Padding="10,0,0,0"/>
                 </Border>
+                <Button x:Name="selfContact" Background="White" Content="{DynamicResource username}" Click="DMButtonClick"/>
                 <!-- You can add buttons here to add users on UI -->
             </StackPanel>
         </Border>
