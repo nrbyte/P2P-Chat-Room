@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 
 using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace P2PChatRoom
 {
@@ -38,20 +39,22 @@ namespace P2PChatRoom
 
             try {
                 sender.Connect(remoteEndPoint);
-                Console.WriteLine("ChatClient.cs: Connected!");
+                Trace.WriteLine($"ChatClient.cs: Connected to {(sender.RemoteEndPoint as IPEndPoint).Address}");
 
                 while (true)
                 {
                     string? msg = null;
                     if (msgsToSend.TryDequeue(out msg))
                     {
-                        byte[] msgInBytes = Encoding.ASCII.GetBytes(msg);
+                        Trace.WriteLine($"Sending message: {msg} to {(sender.RemoteEndPoint as IPEndPoint).Address}");
+                        byte[] msgInBytes = Encoding.ASCII.GetBytes(msg.PadRight(NetworkManager.Constants.MAX_MESSAGE_SIZE));
                         sender.Send(msgInBytes);
+                        Trace.WriteLine($"Sent message");
                     }
                 }
             } catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Trace.WriteLine(e.ToString());
             }
 
             sender.Shutdown(SocketShutdown.Both);

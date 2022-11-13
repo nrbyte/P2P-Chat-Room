@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
+using System.Net;
+
+
 namespace P2PChatRoom
 {
-    public class NetworkManager : ChatHandler
+    public class NetworkManager : ChatSorter
     {
 
         public struct Constants
@@ -23,9 +26,10 @@ namespace P2PChatRoom
 
         private ChatServer cs;
 
-        public void showMessage(string sender, string messageReceived)
+        public void sortMessage(IPAddress senderIP, string messageReceived)
         {
-            directMessages.Where(x => x.contactName == sender).First().ReceiveMessage(sender, messageReceived);
+            DirectMessage directMessage = directMessages.Where(x => x.chatClient.ipAddress.Equals(senderIP)).First();
+            directMessage.ReceiveMessage(directMessage.contactName, messageReceived);
         }
 
         public NetworkManager(ChatHandler ch)

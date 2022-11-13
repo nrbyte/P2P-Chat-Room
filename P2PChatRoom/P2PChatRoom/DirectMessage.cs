@@ -6,7 +6,7 @@ namespace P2PChatRoom
     {
         private ChatHandler ch;
 
-        private ChatClient chatClient;
+        public ChatClient chatClient;
         public List<string> messages;
 
         public string contactName { get; set; }

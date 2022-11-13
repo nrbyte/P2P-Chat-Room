@@ -1,12 +1,22 @@
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows;
+using System.Windows.Documents;
+
+using System.Collections.Generic;
 
 namespace P2PChatRoom
 {
     
+    public interface ChatSorter
+    {
+        void sortMessage(IPAddress senderIP, string messageReceived);
+    }
+
     public interface ChatHandler
     {
         void showMessage(string sender, string messageReceived);
@@ -15,20 +25,57 @@ namespace P2PChatRoom
     public class ChatServer
     {
 
-        private ChatHandler chatHandler;
+        private ChatSorter chatSorter;
 
-        public ChatServer(ChatHandler chatHandler)
+        public ChatServer(ChatSorter chatSorter)
         {
-            this.chatHandler = chatHandler;
+            this.chatSorter = chatSorter;
 
-            Thread thread = new Thread(new ThreadStart(RunServer));
+            Thread thread = new Thread(new ThreadStart(AcceptConnections));
             thread.Start();
         }
-        private void RunServer()
+
+        public void RunServer(Socket handler)
+        {
+            Trace.WriteLine("ChatServer.cs: Got a connection!");
+
+            string dataReceived = "";
+            byte[] bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
+
+            bool serverRunning = true;
+            while (serverRunning)
+            {
+                bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
+
+                int bytesReceived = handler.Receive(bytes);
+                Trace.WriteLine("Recieved Message");
+                dataReceived = Encoding.ASCII.GetString(bytes, 0, bytesReceived);
+
+                string[] dataReceivedSplit = dataReceived.Split("|");
+
+                string sender = dataReceivedSplit[0];
+
+                string msg = dataReceivedSplit[1];
+                Console.WriteLine($"{sender}: {msg}");
+
+                System.Windows.Application.Current.Dispatcher.Invoke(() => {
+                    Trace.WriteLine($"Recieved message from {(handler.RemoteEndPoint as IPEndPoint).Address}");
+                    chatSorter.sortMessage((handler.RemoteEndPoint as IPEndPoint).Address, msg);
+                });
+
+            }
+
+            handler.Shutdown(SocketShutdown.Both);
+            handler.Close();
+        }
+
+        private void AcceptConnections()
         {
             IPHostEntry host = Dns.GetHostEntry("localhost");
             IPAddress ipAddress = host.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, NetworkManager.Constants.RECV_MSG_PORT);
+
+            List<Thread> allConnections = new List<Thread>();
 
             try {
 
@@ -40,35 +87,15 @@ namespace P2PChatRoom
                 
                 Console.WriteLine("ChatServer.cs: Waiting for connections!");
 
-                Socket handler = listener.Accept();
-
-                Console.WriteLine("ChatServer.cs: Got a connection!");
-
-                string dataReceived = "";
-                byte[] bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
-
-                bool serverRunning = true;
-                while (serverRunning)
+                while (true)
                 {
-                    bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
+                    Socket handler = listener.Accept();
 
-                    int bytesReceived = handler.Receive(bytes);
-                    dataReceived = Encoding.ASCII.GetString(bytes, 0, bytesReceived);
+                    Thread thread = new Thread(() => { RunServer(handler); });
+                    thread.Start();
 
-                    string[] dataReceivedSplit = dataReceived.Split("|");
-
-                    string sender = dataReceivedSplit[0];
-                    string msg = dataReceivedSplit[1];
-                    Console.WriteLine($"{sender}: {msg}");
-
-                    System.Windows.Application.Current.Dispatcher.Invoke(() => {
-                        chatHandler.showMessage(sender, msg);
-                    });
-
+                    allConnections.Add(thread);
                 }
-
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
 
             } catch (Exception e)
             {
