@@ -74,14 +74,14 @@ namespace P2PChatRoom
             NewConnection newConPopup = new NewConnection();
             newConPopup.ShowDialog();
 
-            string IPAdress = newConPopup.IPAddress.Text;
+            string IPAddress = newConPopup.IPAddress.Text;
             string contactName = newConPopup.deviceName.Text;
 
             if (newConPopup.DialogResult == true)
             {
-                DirectMessage directMessageObj = new DirectMessage(this, contactName, IPAdress);
-                networkManager.AddDirectMessage(directMessageObj);
-                addDMButton(devices, newConPopup.deviceName.Text);
+                DirectMessage contact = new DirectMessage(this, contactName, IPAddress);
+                networkManager.AddDirectMessage(contact);
+                addDMButton(deviceSP, newConPopup.deviceName.Text);
             }
         }
 
@@ -99,7 +99,14 @@ namespace P2PChatRoom
         // Changes current contact
         private void DMButtonClick(object sender, RoutedEventArgs e)
         {
-            currentContact = (sender as Button).Content.ToString();
+            // Ensures that an DM Button with no content can't be selected
+            Button btn = (Button)sender;
+            if (string.IsNullOrEmpty( btn.Content.ToString() )) {
+                MessageBox.Show("The selected contact isn't labeled!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else {
+                currentContact = btn.Content.ToString();
+            }
         }
     }
 }

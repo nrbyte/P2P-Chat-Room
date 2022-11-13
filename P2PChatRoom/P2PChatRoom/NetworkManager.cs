@@ -35,11 +35,11 @@ namespace P2PChatRoom
             cs = new ChatServer(this);
         }
 
-        public bool SendMessageOutward(string recipient, string deviceName, string msg)
+        public bool SendMessageOutward(string recipient, string sender, string msg)
         {
             try
             {
-                directMessages.Where(x => x.contactName == recipient).First().SendMessageOutward(deviceName, msg);
+                directMessages.Where(x => x.contactName == recipient).First().SendMessageOutward(sender, msg);
                 return true;
             }
             catch

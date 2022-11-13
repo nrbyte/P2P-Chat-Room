@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <!-- Devices Column -->
         <Border Background="Gainsboro" BorderBrush="Gainsboro" BorderThickness="1" Margin="5">
-            <StackPanel x:Name="devices" Height="367" VerticalAlignment="Top">
+            <StackPanel x:Name="deviceSP" Height="367" VerticalAlignment="Top">
                 <StackPanel.Resources>
                     <Style BasedOn="{StaticResource deviceStyle}" TargetType="{x:Type Button}"/>
                 </StackPanel.Resources>
