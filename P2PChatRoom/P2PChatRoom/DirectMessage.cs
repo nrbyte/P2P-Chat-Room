@@ -9,7 +9,7 @@ namespace P2PChatRoom
         private ChatClient chatClient;
         public List<string> messages;
 
-        public string contactName { get; }
+        public string contactName { get; set; }
 
         public DirectMessage(ChatHandler ch, string contactName, string ipAddress)
         {

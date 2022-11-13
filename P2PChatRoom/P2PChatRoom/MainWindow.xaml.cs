@@ -114,5 +114,33 @@ namespace P2PChatRoom
                 messageDockPanel.Children.Clear();
             }
         }
+
+        // Prevents window from being closed with X button. AKA the classic skype fakeout
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+            e.Cancel = true;
+        }
+
+        // Changes the username in the App.xaml resources, reassigns yourDeviceName
+        private void changeUsername(string newUsername)
+        {
+            networkManager.directMessages.Where(x => x.contactName == yourDeviceName).First().contactName = newUsername;
+            this.Resources["username"] = newUsername;
+            yourDeviceName = newUsername;
+        }
+
+        // Handles the contextMenu click to change the username
+        private void ChangeUsername_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeUsernameDialog changeDialog = new ChangeUsernameDialog();
+            changeDialog.ShowDialog();
+
+            string newUsername = changeDialog.newUsername.Text;
+            if (changeDialog.DialogResult == true)
+            {
+                changeUsername(newUsername);
+            }
+        }
     }
 }

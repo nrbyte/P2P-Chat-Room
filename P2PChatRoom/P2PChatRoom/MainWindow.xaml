@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:P2PChatRoom"
         mc:Ignorable="d"
-        Background="AliceBlue" Height="450" Width="800">
+        Background="AliceBlue" Height="450" Width="800" Closing="Window_Closing">
 
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -19,7 +19,13 @@
                     <Style BasedOn="{StaticResource deviceStyle}" TargetType="{x:Type Button}"/>
                 </StackPanel.Resources>
                 <Border BorderBrush="Black" BorderThickness="1" Margin="2">
-                    <TextBlock Height="20" VerticalAlignment="Top" Text="{DynamicResource username}" Background="White" Padding="10,0,0,0"/>
+                    <TextBlock Height="20" VerticalAlignment="Top" Text="{DynamicResource username}" Background="White" Padding="10,0,0,0">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Change username" Click="ChangeUsername_Click"></MenuItem>
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
                 </Border>
                 <Button x:Name="selfContact" Background="White" Content="{DynamicResource username}" Click="DMButtonClick"/>
                 <!-- You can add buttons here to add users on UI -->
