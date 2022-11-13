@@ -37,24 +37,33 @@ namespace P2PChatRoom
 
             Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            try {
-                sender.Connect(remoteEndPoint);
-                Trace.WriteLine($"ChatClient.cs: Connected to {(sender.RemoteEndPoint as IPEndPoint).Address}");
+            bool successful = false;
 
-                while (true)
+            for (int i = 0; i < 2; i++)
+            {
+                if (!successful) continue;
+                try
                 {
-                    string? msg = null;
-                    if (msgsToSend.TryDequeue(out msg))
+                    sender.Connect(remoteEndPoint);
+                    Trace.WriteLine($"ChatClient.cs: Connected to {(sender.RemoteEndPoint as IPEndPoint).Address}");
+
+                    while (true)
                     {
-                        Trace.WriteLine($"Sending message: {msg} to {(sender.RemoteEndPoint as IPEndPoint).Address}");
-                        byte[] msgInBytes = Encoding.ASCII.GetBytes(msg.PadRight(NetworkManager.Constants.MAX_MESSAGE_SIZE));
-                        sender.Send(msgInBytes);
-                        Trace.WriteLine($"Sent message");
+                        successful = true;
+                        string? msg = null;
+                        if (msgsToSend.TryDequeue(out msg))
+                        {
+                            Trace.WriteLine($"Sending message: {msg} to {(sender.RemoteEndPoint as IPEndPoint).Address}");
+                            byte[] msgInBytes = Encoding.ASCII.GetBytes(msg.PadRight(NetworkManager.Constants.MAX_MESSAGE_SIZE));
+                            sender.Send(msgInBytes);
+                            Trace.WriteLine($"Sent message");
+                        }
                     }
                 }
-            } catch (Exception e)
-            {
-                Trace.WriteLine(e.ToString());
+                catch (Exception e)
+                {
+                    Trace.WriteLine(e.ToString());
+                }
             }
 
             sender.Shutdown(SocketShutdown.Both);
