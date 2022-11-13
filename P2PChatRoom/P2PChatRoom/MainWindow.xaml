@@ -29,17 +29,13 @@
         
         <!-- Chat Column -->
         <StackPanel VerticalAlignment="Bottom" Grid.Column="1">
-            <StackPanel x:Name="messageStackPanel" VerticalAlignment="Top" Height="Auto">
-                <StackPanel.Resources>
-                    <Style BasedOn="{StaticResource messageStyle}" TargetType="TextBox"/>
-                </StackPanel.Resources>
-                <TextBox>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-                dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-                Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
-                eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus.
-                </TextBox>
-            </StackPanel>
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Visible" CanContentScroll="True">
+                <StackPanel x:Name="messageStackPanel" VerticalAlignment="Bottom" Height="360">
+                    <StackPanel.Resources>
+                        <Style BasedOn="{StaticResource messageStyle}" TargetType="TextBox"/>
+                    </StackPanel.Resources>
+                </StackPanel>
+            </ScrollViewer>
             <StackPanel x:Name="typingStackPanel" VerticalAlignment="Bottom" Height="Auto">
                 <TextBox x:Name="inputMessage" Height="Auto" TextWrapping="Wrap" MaxLength="512">Type Here</TextBox>
                 <Button x:Name="sendButton" Width="50" HorizontalAlignment="Right" Margin="10" Click="sendButton_Click">Send</Button>

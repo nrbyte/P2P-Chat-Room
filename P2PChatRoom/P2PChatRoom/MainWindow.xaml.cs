@@ -64,7 +64,7 @@ namespace P2PChatRoom
             Button btn = new Button();
             btn.Content = content;
             btn.Click += DMButtonClick;
-            sp.Children.Add(btn);
+            sp.Children.Insert(0, btn);
         }   
 
     // It shows the dialog, and the inputted IP Address and deviceName are used to make a new DM contact
