@@ -23,7 +23,7 @@ namespace P2PChatRoom
     {
         string path = Directory.GetCurrentDirectory();
         NetworkManager networkManager;
-        StackPanel msgSP;
+        DockPanel msgDP;
         Button? currentButton;
         string yourDeviceName;
 
@@ -36,13 +36,14 @@ namespace P2PChatRoom
 
             this.ResizeMode = ResizeMode.CanMinimize;
             networkManager = new NetworkManager(this);
-            msgSP = messageStackPanel;
+            msgDP = messageDockPanel;
 
             // Finds icon according to current directory and binds it to the window icon
             Uri icon = new Uri($"{path}\\images\\P2P.ico", UriKind.Absolute);
             ImageSource iconSource = new BitmapImage(icon);
             this.Icon = iconSource;
 
+            // yourDeviceName and selfContact Button initialisation.
             yourDeviceName = this.FindResource("username").ToString();
             DirectMessage contact = new DirectMessage(this, yourDeviceName, "localhost");
             networkManager.AddDirectMessage(contact);
@@ -55,7 +56,8 @@ namespace P2PChatRoom
         {
             TextBox currentMessage = new TextBox();
             currentMessage.Text = $"{deviceName}:\n{messageReceived}";
-            messageStackPanel.Children.Add(currentMessage);
+            messageDockPanel.Children.Insert(0, currentMessage);
+            messageSV.ScrollToBottom();
         }
 
         // Adds a DM button with the given content to the given stack panel
@@ -64,11 +66,11 @@ namespace P2PChatRoom
             Button btn = new Button();
             btn.Content = content;
             btn.Click += DMButtonClick;
-            sp.Children.Insert(0, btn);
+            sp.Children.Add(btn);
         }   
 
-    // It shows the dialog, and the inputted IP Address and deviceName are used to make a new DM contact
-    private void addConnection_Click(object sender, RoutedEventArgs e)
+        // It shows the dialog, and the inputted IP Address and deviceName are used to make a new DM contact
+        private void addConnection_Click(object sender, RoutedEventArgs e)
         {
             NewConnection newConPopup = new NewConnection();
             newConPopup.ShowDialog();
@@ -109,7 +111,7 @@ namespace P2PChatRoom
                 currentContact = btnClicked.Content.ToString();
                 btnClicked.Background = Brushes.White;
                 currentButton = btnClicked;
-                messageStackPanel.Children.Clear();
+                messageDockPanel.Children.Clear();
             }
         }
     }

@@ -29,12 +29,12 @@
         
         <!-- Chat Column -->
         <StackPanel VerticalAlignment="Bottom" Grid.Column="1">
-            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Visible" CanContentScroll="True">
-                <StackPanel x:Name="messageStackPanel" VerticalAlignment="Bottom" Height="360">
-                    <StackPanel.Resources>
+            <ScrollViewer x:Name="messageSV" VerticalScrollBarVisibility="Visible" CanContentScroll="True" Height="360">
+                <DockPanel x:Name="messageDockPanel" VerticalAlignment="Bottom" Height="Auto" LastChildFill="False">
+                    <DockPanel.Resources>
                         <Style BasedOn="{StaticResource messageStyle}" TargetType="TextBox"/>
-                    </StackPanel.Resources>
-                </StackPanel>
+                    </DockPanel.Resources>
+                </DockPanel>
             </ScrollViewer>
             <StackPanel x:Name="typingStackPanel" VerticalAlignment="Bottom" Height="Auto">
                 <TextBox x:Name="inputMessage" Height="Auto" TextWrapping="Wrap" MaxLength="512">Type Here</TextBox>
