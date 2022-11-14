@@ -45,7 +45,7 @@ namespace P2PChatRoom
 
             // yourDeviceName and selfContact Button initialisation.
             yourDeviceName = this.FindResource("username").ToString();
-            DirectMessage contact = new DirectMessage(this, yourDeviceName, "localhost");
+            DirectMessage contact = new DirectMessage(this, yourDeviceName, networkManager.cs.GetLocalIPAddress());
             networkManager.AddDirectMessage(contact);
             currentContact = yourDeviceName;
             currentButton = selfContact;

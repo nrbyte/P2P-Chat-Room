@@ -69,7 +69,7 @@ namespace P2PChatRoom
             handler.Close();
         }
 
-        private string GetLocalIPAddress()
+        public string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)

@@ -24,7 +24,7 @@ namespace P2PChatRoom
 
         public List<DirectMessage> directMessages;
 
-        private ChatServer cs;
+        public ChatServer cs;
 
         public void sortMessage(IPAddress senderIP, string messageReceived)
         {
