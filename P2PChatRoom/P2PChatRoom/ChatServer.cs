@@ -99,7 +99,7 @@ namespace P2PChatRoom
 
             } catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Trace.WriteLine(e.ToString());
             }
         }
     }
