@@ -58,7 +58,7 @@ namespace P2PChatRoom
                 string msg = dataReceivedSplit[1];
                 Console.WriteLine($"{sender}: {msg}");
 
-                System.Windows.Application.Current.Dispatcher.Invoke(() => {
+                Application.Current.Dispatcher.Invoke(() => {
                     Trace.WriteLine($"Recieved message from {(handler.RemoteEndPoint as IPEndPoint).Address}");
                     chatSorter.sortMessage((handler.RemoteEndPoint as IPEndPoint).Address, msg);
                 });
@@ -113,7 +113,7 @@ namespace P2PChatRoom
 
             } catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Trace.WriteLine(e.ToString());
             }
         }
     }
