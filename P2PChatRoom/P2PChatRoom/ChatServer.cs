@@ -69,9 +69,23 @@ namespace P2PChatRoom
             handler.Close();
         }
 
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "FAILED";
+        }
+
         private void AcceptConnections()
         {
-            IPHostEntry host = Dns.GetHostEntry("localhost");
+            Trace.WriteLine($"BINDING SERVER TO: {GetLocalIPAddress()}");
+            IPHostEntry host = Dns.GetHostEntry(GetLocalIPAddress());
             IPAddress ipAddress = host.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, NetworkManager.Constants.RECV_MSG_PORT);
 

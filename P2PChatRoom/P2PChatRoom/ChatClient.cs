@@ -28,7 +28,7 @@ namespace P2PChatRoom
 
         public void AddMessage(string device, string msg)
         {
-            msgsToSend.Enqueue((device + msg));
+            msgsToSend.Enqueue((device + "|" + msg));
         }
         
         private void RunClient()
