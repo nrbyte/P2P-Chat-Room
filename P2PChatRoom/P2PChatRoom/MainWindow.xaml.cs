@@ -43,12 +43,12 @@ namespace P2PChatRoom
             ImageSource iconSource = new BitmapImage(icon);
             this.Icon = iconSource;
 
-            //yourDeviceName and selfContact Button initialisation.
-            //yourDeviceName = this.FindResource("username").ToString();
-            //DirectMessage contact = new DirectMessage(this, yourDeviceName, networkManager.cs.GetLocalIPAddress());
-            //networkManager.AddDirectMessage(contact);
-            //currentContact = yourDeviceName;
-            //currentButton = selfContact;
+            // yourDeviceName and selfContact Button initialisation.
+            yourDeviceName = this.FindResource("username").ToString();
+            DirectMessage contact = new DirectMessage(this, yourDeviceName, networkManager.cs.GetLocalIPAddress());
+            networkManager.AddDirectMessage(contact);
+            currentContact = yourDeviceName;
+            currentButton = selfContact;
         } 
 
         // Displays given message with deviceName on the stackPanel
@@ -143,11 +143,11 @@ namespace P2PChatRoom
             }
         }
 
-        public void createNewDM(string senderIP)
+        void createNewDM(string senderIP)
         {
             DirectMessage contact = new DirectMessage(this, senderIP, senderIP);
             networkManager.AddDirectMessage(contact);
-            addDMButton(deviceSP, senderIP.ToString());
+            addDMButton(deviceSP, newConPopup.deviceName.Text);
         }
     }
 }

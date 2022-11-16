@@ -28,6 +28,7 @@ namespace P2PChatRoom
 
     public class ChatServer
     {
+
         private ChatSorter chatSorter;
         private NewDMHandler newDMHandler;
 
@@ -49,8 +50,8 @@ namespace P2PChatRoom
             byte[] bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
 
             bool serverRunning = true;
+
             newDMHandler.createNewDM((handler.RemoteEndPoint as IPEndPoint).Address.ToString());
-            
 
             while (serverRunning)
             {
