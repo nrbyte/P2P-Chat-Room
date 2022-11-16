@@ -143,11 +143,11 @@ namespace P2PChatRoom
             }
         }
 
-        void createNewDM(string senderIP)
+        public void createNewDM(string senderIP)
         {
             DirectMessage contact = new DirectMessage(this, senderIP, senderIP);
             networkManager.AddDirectMessage(contact);
-            addDMButton(deviceSP, newConPopup.deviceName.Text);
+            addDMButton(deviceSP, senderIP);
         }
     }
 }
