@@ -11,7 +11,11 @@ using System.Collections.Generic;
 
 namespace P2PChatRoom
 {
-    
+    public interface NewDMHandler
+    {
+        void createNewDM(string senderIP);
+    }
+
     public interface ChatSorter
     {
         void sortMessage(IPAddress senderIP, string messageReceived);
@@ -26,10 +30,13 @@ namespace P2PChatRoom
     {
 
         private ChatSorter chatSorter;
+        private NewDMHandler newDMHandler;
 
-        public ChatServer(ChatSorter chatSorter)
+        public ChatServer(ChatSorter chatSorter, NewDMHandler newDMHandler)
         {
+
             this.chatSorter = chatSorter;
+            this.newDMHandler = newDMHandler;
 
             Thread thread = new Thread(new ThreadStart(AcceptConnections));
             thread.Start();
@@ -43,6 +50,9 @@ namespace P2PChatRoom
             byte[] bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];
 
             bool serverRunning = true;
+
+            newDMHandler.createNewDM((handler.RemoteEndPoint as IPEndPoint).Address.ToString());
+
             while (serverRunning)
             {
                 bytes = new byte[NetworkManager.Constants.MAX_MESSAGE_SIZE];

@@ -32,11 +32,11 @@ namespace P2PChatRoom
             directMessage.ReceiveMessage(directMessage.contactName, messageReceived);
         }
 
-        public NetworkManager(ChatHandler ch)
+        public NetworkManager(ChatHandler ch, NewDMHandler newDMHandler)
         {
             directMessages = new List<DirectMessage>();
 
-            cs = new ChatServer(this);
+            cs = new ChatServer(this, newDMHandler);
         }
 
         public bool SendMessageOutward(string recipient, string sender, string msg)

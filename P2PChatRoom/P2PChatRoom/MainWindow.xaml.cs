@@ -19,7 +19,7 @@ namespace P2PChatRoom
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, ChatHandler
+    public partial class MainWindow : Window, ChatHandler, NewDMHandler
     {
         string path = Directory.GetCurrentDirectory();
         NetworkManager networkManager;
@@ -35,7 +35,7 @@ namespace P2PChatRoom
             InitializeComponent();
 
             this.ResizeMode = ResizeMode.CanMinimize;
-            networkManager = new NetworkManager(this);
+            networkManager = new NetworkManager(this, this);
             msgDP = messageDockPanel;
 
             // Finds icon according to current directory and binds it to the window icon
@@ -141,6 +141,13 @@ namespace P2PChatRoom
             {
                 changeUsername(newUsername);
             }
+        }
+
+        void createNewDM(string senderIP)
+        {
+            DirectMessage contact = new DirectMessage(this, senderIP, senderIP);
+            networkManager.AddDirectMessage(contact);
+            addDMButton(deviceSP, newConPopup.deviceName.Text);
         }
     }
 }
